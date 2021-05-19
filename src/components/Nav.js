@@ -1,28 +1,35 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 
+/**
+ *  SearchForm renders the search action
+ * */
 class Nav extends Component {
-  state = { searchText: "" };
-
-  handleChange = (e) => {
+  state = {
+    searchText: "",
+  };
+  //setting the state of the search value when the input field is typed in
+  onSearchChange = (e) => {
     this.setState({ searchText: e.target.value });
   };
-
+  //search action for the search value and pushes search value to the browser's memory
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.handleSearch(this.state.searchText);
+    this.props.onSearch(this.state.searchText);
+    this.props.history.push(`/search/${this.query.value}`);
     e.currentTarget.reset();
   };
+
   render() {
     return (
       <div>
         <h1>Photo Gallery</h1>
-
-        <form onSubmit={this.handleSubmit} className="search-form">
+        <form className="search-form" onSubmit={this.handleSubmit}>
           <input
-            onChange={this.handleChange}
             type="search"
             name="search"
+            onChange={this.onSearchChange}
+            ref={(input) => (this.query = input)}
             placeholder="Search"
             required
           />
@@ -39,20 +46,18 @@ class Nav extends Component {
             </svg>
           </button>
         </form>
-        <h3>Search for your favourite images! </h3>
-
-        {/* NAV BAR STARTS HERE*/}
+        <h3>Search for your favourite images!</h3>
 
         <nav className="main-nav">
           <ul>
             <li>
-              <NavLink to="/">Cats</NavLink>
+              <NavLink to="/sunsets">Sunsets</NavLink>
             </li>
             <li>
-              <NavLink to="/">Dogs</NavLink>
+              <NavLink to="/football">Football</NavLink>
             </li>
             <li>
-              <NavLink to="/">Computers</NavLink>
+              <NavLink to="/stars">Stars</NavLink>
             </li>
           </ul>
         </nav>
@@ -61,4 +66,4 @@ class Nav extends Component {
   }
 }
 
-export default Nav;
+export default withRouter(Nav);

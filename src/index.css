@@ -88,7 +88,6 @@ input {
   border-radius: 5px;
 }
 
-
 .photo-container li:hover img {
   transform: scale(1.1);
 }

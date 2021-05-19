@@ -1,15 +1,16 @@
 import React from "react";
 
-const Photo = ({ id, server_id, secret }) => {
+/**
+ * @param props
+ * Photo renders a single image
+ * */
+const Photo = (props) => {
+  //passing the necessary info from props to the flickr picture rendering link
+  const source = `https://farm${props.farm}.staticflickr.com/${props.server}/${props.id}_${props.secret}.jpg`;
   return (
-    <div>
-      <li className="photo-wrap">
-        <img
-          src={`https://live.staticflickr.com/${server_id}/${id}_${secret}.jpg`}
-          alt="/"
-        />
-      </li>
-    </div>
+    <li>
+      <img src={source} alt={props.title} />
+    </li>
   );
 };
 
